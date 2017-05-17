@@ -9,6 +9,7 @@
 
 import urllib2
 import re
+import urllib
 
 def downLoadSingleFile(url,dir,logFile):
     """
@@ -42,6 +43,7 @@ def downLoadSingleFile(url,dir,logFile):
 
     data = response.read()
     fileStr = re.findall('name=(.*)$', url)[0]
+    fileStr = urllib.unquote(fileStr)
     filePath = dir+fileStr.replace('/', '-')+'.scel'   # 需要将文件名中的/替换，否则报错
     with open(filePath.decode('utf8'), 'wb') as f:  # 保存中文文件名所必须的
         f.write(data)
